@@ -1,12 +1,22 @@
 import sys
-import MySQLdb
+import mysql.connector
 from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QLineEdit, QApplication
 
 
 class Example(QWidget):
     def __init__(self):
         super().__init__()
-        self.con = MySQLdb.connect(host='localhost', user='root', passwd='3323390583Yy@@', db='lotrfinal')
+        config = {
+        'host':'localhost',
+        'port':3306,
+        'database':'lotrfinalzhengw',
+        'user':'root',
+        'password':'gaw3y9',
+        'charset':'utf8',
+        'use_unicode':True,
+        'get_warnings':True,
+        }
+        self.con = mysql.connector.connect(**config)
         self.cursor = self.con.cursor()
         self.initUI()
 
@@ -41,7 +51,7 @@ class Example(QWidget):
         return result
 
 
-if __name__ == '__test1.0__':
+if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
