@@ -20,7 +20,7 @@ class mainUI(QTabWidget):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(300,300,400,100)
+        self.setGeometry(300,300,800,400)
         self.setWindowTitle('NBA enquiry')
 
         self.tab1 = QTabWidget()
@@ -30,21 +30,40 @@ class mainUI(QTabWidget):
 
         self.tab1UI()
 
-        self.addTab(self.tab1, "Tab 1")
+        self.addTab(self.tab1, "Read")
         
 
     def tab1UI(self):
-        self.input_text1 = QTextEdit('input here')
-        self.input_text1.selectAll()
-        self.input_text1.setFocus()
-        self.bt1 = QPushButton('OK', self)
+        self.tab11 = QWidget()
+        self.text11 = QLabel('input here:')
+        self.input_text11 = QLineEdit()
+        self.input_text11.selectAll()
+        self.input_text11.setFocus()
+        self.bt11 = QPushButton('OK', self)
+        self.table11 = QTableWidget(2,8)
+        for i in range(0,8):
+            self.table11.setColumnWidth(i,100)
+        
+        grid1 = QGridLayout()
+        grid1.addWidget(self.text11, 0,2,1,1)
+        grid1.addWidget(self.input_text11, 1,3,1,2)
+        grid1.addWidget(self.bt11,2,3,1,2)
+        grid1.addWidget(self.table11, 3,0,2,8)
+        grid1.setSpacing(10)
+        self.tab11.setLayout(grid1)
 
-        vbox = QVBoxLayout()
-        vbox.addWidget(self.text1)
-        vbox.addWidget(self.input_text1)
-        vbox.addWidget(self.bt1)
+        # vbox1 = QVBoxLayout()
+        # vbox1.addWidget(self.input_text11)
+        # vbox1.addWidget(self.bt11)
+        # vbox1.addWidget(self.table11)
+        # self.tab11.setLayout(vbox1)
 
-        self.tab1.setLayout(vbox)
+        self.tab1.addTab(self.tab11, 'Team')
+        
+
+        
+
+        
 
     
     # def tab2UI(self):
