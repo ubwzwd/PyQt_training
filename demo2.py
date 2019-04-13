@@ -23,7 +23,7 @@ class mainUI(QTabWidget):
         self.setGeometry(300,300,400,100)
         self.setWindowTitle('NBA enquiry')
 
-        self.tab1 = QWidget()
+        self.tab1 = QTabWidget()
         # self.tab2 = QWidget()
         # self.tab3 = QWidget()
         # self.tab4 = QWidget()
@@ -34,7 +34,6 @@ class mainUI(QTabWidget):
         
 
     def tab1UI(self):
-        self.text1 = QLabel('Please inpute a name of team, player or coach')
         self.input_text1 = QTextEdit('input here')
         self.input_text1.selectAll()
         self.input_text1.setFocus()
