@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `yinzheng` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+USE `yinzheng`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: yinzheng
@@ -30,8 +32,8 @@ CREATE TABLE `arena` (
   `attend_per_game` int(11) DEFAULT NULL,
   PRIMARY KEY (`arena_id`),
   KEY `arena` (`team_name`),
-  CONSTRAINT `arena` FOREIGN KEY (`team_name`) REFERENCES `team` (`name_initial`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `arena` FOREIGN KEY (`team_name`) REFERENCES `team` (`name_initial`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +42,7 @@ CREATE TABLE `arena` (
 
 LOCK TABLES `arena` WRITE;
 /*!40000 ALTER TABLE `arena` DISABLE KEYS */;
-INSERT INTO `arena` VALUES (61,'Fiserv Forum','MIL',703610,17590),(62,'Oracle Arena','GSW',803436,19596),(63,'Scotiabank Arena','TOR',812822,19825),(64,'Vivint Smart Home Arena','UTA',732240,18306),(65,'Toyota Center','HOS',740392,18058),(66,'Moda Center','POR',779531,19488),(67,'Pepsi Center','DEN',740125,18503),(68,'TD Garden','BOS',763584,18624),(69,'Chesapeake Energy Arena','OKC',728120,18203),(70,'Bankers Life Fieldhouse','IND',689310,16812),(71,'Wells Fargo Center','PHI',818145,20454),(72,'AT&T Center','SAS',731987,18300),(73,'STAPLES Center','LAC',692672,17317),(74,'Amway Center','ORL',720024,17431),(75,'AmericanAirlines Arena','MIA',785111,19628),(76,'Barclays Center','BRK',594865,14872),(77,'American Airlines Center','DAL',799528,19988),(78,'Golden 1 Center','SAC',700975,17097),(79,'Little Caesars Arena','DET',656161,16404),(80,'Target Center','MIN',611424,15286),(81,'Smoothie King Center','NOP',639093,15977),(82,'STAPLES Center','LAL',759880,18997),(83,'Spectrum Center','CHO',658851,16471),(84,'FedEx Forum','MEM',620538,15513),(85,'Capital One Arena','WAS',696587,17372),(86,'State Farm Arena','ATL',611297,15282),(87,'United Center','CHI',802125,20053),(88,'Talking Stick Resort Arena','PHO',627023,15293),(89,'Madison Square Garden (IV)','NYK',759275,18982),(90,'Quicken Loans Arena','CLE',773905,19348);
+INSERT INTO `arena` VALUES (1,'Fiserv Forum','MIL',703610,17590),(2,'Oracle Arena','GSW',803436,19596),(3,'Scotiabank Arena','TOR',812822,19825),(4,'Vivint Smart Home Arena','UTA',732240,18306),(5,'Toyota Center','HOS',740392,18058),(6,'Moda Center','POR',779531,19488),(7,'Pepsi Center','DEN',740125,18503),(8,'TD Garden','BOS',763584,18624),(9,'Chesapeake Energy Arena','OKC',728120,18203),(10,'Bankers Life Fieldhouse','IND',689310,16812),(11,'Wells Fargo Center','PHI',818145,20454),(12,'AT&T Center','SAS',731987,18300),(13,'STAPLES Center','LAC',692672,17317),(14,'Amway Center','ORL',720024,17431),(15,'AmericanAirlines Arena','MIA',785111,19628),(16,'Barclays Center','BRK',594865,14872),(17,'American Airlines Center','DAL',799528,19988),(18,'Golden 1 Center','SAC',700975,17097),(19,'Little Caesars Arena','DET',656161,16404),(20,'Target Center','MIN',611424,15286),(21,'Smoothie King Center','NOP',639093,15977),(22,'STAPLES Center','LAL',759880,18997),(23,'Spectrum Center','CHO',658851,16471),(24,'FedEx Forum','MEM',620538,15513),(25,'Capital One Arena','WAS',696587,17372),(26,'State Farm Arena','ATL',611297,15282),(27,'United Center','CHI',802125,20053),(28,'Talking Stick Resort Arena','PHO',627023,15293),(29,'Madison Square Garden (IV)','NYK',759275,18982),(30,'Quicken Loans Arena','CLE',773905,19348);
 /*!40000 ALTER TABLE `arena` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,8 +88,8 @@ CREATE TABLE `current_play_off` (
   PRIMARY KEY (`id`),
   KEY `play_off_coach_name` (`coach_name`),
   KEY `play_off_team` (`team`),
-  CONSTRAINT `play_off_coach_name` FOREIGN KEY (`coach_name`) REFERENCES `coach` (`coach_name`),
-  CONSTRAINT `play_off_team` FOREIGN KEY (`team`) REFERENCES `team` (`name_initial`)
+  CONSTRAINT `play_off_coach_name` FOREIGN KEY (`coach_name`) REFERENCES `coach` (`coach_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `play_off_team` FOREIGN KEY (`team`) REFERENCES `team` (`name_initial`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,13 +116,13 @@ CREATE TABLE `player` (
   `player_name` varchar(50) NOT NULL,
   `team_initial` varchar(50) NOT NULL,
   `age` int(11) DEFAULT NULL,
-  `game_played` int(11) DEFAULT NULL,
-  `game_start_up` int(11) DEFAULT NULL,
-  `minutes_played` int(11) DEFAULT NULL,
-  `FG` int(11) DEFAULT NULL,
+  `game_played` int(11) DEFAULT '0',
+  `game_start_up` int(11) DEFAULT '0',
+  `minutes_played` int(11) DEFAULT '0',
+  `FG` int(11) DEFAULT '0',
   PRIMARY KEY (`player_id`),
   KEY `team_initial` (`team_initial`),
-  CONSTRAINT `team_initial` FOREIGN KEY (`team_initial`) REFERENCES `team` (`name_initial`)
+  CONSTRAINT `team_initial` FOREIGN KEY (`team_initial`) REFERENCES `team` (`name_initial`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=701 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -151,8 +153,8 @@ CREATE TABLE `regular_season_current_state` (
   PRIMARY KEY (`id`),
   KEY `coach_name_fk` (`coach_name`),
   KEY `team_fk` (`team`),
-  CONSTRAINT `coach_name_fk` FOREIGN KEY (`coach_name`) REFERENCES `coach` (`coach_name`),
-  CONSTRAINT `team_fk` FOREIGN KEY (`team`) REFERENCES `team` (`name_initial`)
+  CONSTRAINT `coach_name_fk` FOREIGN KEY (`coach_name`) REFERENCES `coach` (`coach_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `team_fk` FOREIGN KEY (`team`) REFERENCES `team` (`name_initial`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,55 +200,6 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'yinzheng'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `find_coach` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `find_coach`(coach_names VARCHAR(50))
-BEGIN
-
-SELECT coach_name, 
-	(SELECT win 
-    FROM regular_season_current_state
-    WHERE regular_season_current_state.coach_name=coach.coach_name) 
-    AS regular_season_win
-FROM coach
-where coach_name=coach_names;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `find_player` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `find_player`(player_names VARCHAR(50))
-BEGIN
-
-SELECT player_name, team_initial, age, game_played, 
-		game_start_up, minutes_played, FG
-FROM player
-where player_name= player_names;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -257,4 +210,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-13 17:44:17
+-- Dump completed on 2019-04-14 14:50:18
