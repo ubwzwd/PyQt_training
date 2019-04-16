@@ -217,13 +217,14 @@ class mainUI(QTabWidget):
         # cursor2 = self.conx.cursor()
         # cursor2.execute('select current_name from team')
         # team_list = cursor2.fetchall()
-        cursor2.close()
+        cursor.close()
         if team_profile:            
             self.table11.setItem(0,0,QTableWidgetItem(team_profile[0]))
             self.table11.setItem(0,1,QTableWidgetItem(team_profile[1]))
             self.table11.setItem(0,2,QTableWidgetItem(team_profile[2]))
             self.table11.setItem(0,3,QTableWidgetItem(team_profile[3]))
             self.table11.setItem(0,4,QTableWidgetItem(team_profile[4]))
+        self.input_text11.clear()
 
     def readPlayer(self):
         player = self.input_text12.text()
@@ -248,6 +249,7 @@ class mainUI(QTabWidget):
             self.table12.setItem(0,4,QTableWidgetItem(str(player_profile[5])))
             self.table12.setItem(0,5,QTableWidgetItem(str(player_profile[6])))
             self.table12.setItem(0,6,QTableWidgetItem(str(player_profile[7])))
+        self.input_text12.clear()
 
     def addPlayer(self):
         name = self.input_text22.text()
